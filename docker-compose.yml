@@ -24,6 +24,9 @@ services:
     volumes:
       - ./certbot/www:/var/www/certbot
       - ./letsencrypt:/etc/letsencrypt
-    entrypoint: sh
-    command: -c "trap : TERM INT; sleep infinity & wait"
+    entrypoint: ["sh", "-c"]
+    command:
+      - >
+        trap ':' TERM INT;
+        sleep infinity & wait
     restart: unless-stopped
