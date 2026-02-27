@@ -1,6 +1,6 @@
-# EZproxy Redirect Service (Docker + Nginx)
+# EZproxy Redirect Service
 
-This project provides an HTTP/HTTPS redirect service to preserve legacy EZproxy links after migration to a hosted EZproxy or OCLC IDM environment.
+This project provides an HTTP/HTTPS redirect service to preserve legacy EZproxy links after migration to a hosted EZproxy environment using Docker and Nginx.
 
 ## Purpose
 Redirect legacy URLs such as:
@@ -55,26 +55,9 @@ curl -I "https://example-ezproxy-redirect.examplehost.com/login?url=https://eboo
 17 2 * * * docker compose exec -T certbot certbot renew --quiet && docker compose exec -T nginx nginx -s reload
 ```
 
-## Troubleshooting
-
-| Issue | Action |
-|-------|--------|
-| Connection refused | Check `docker compose ps` |
-| Cert mismatch | Re-run certbot |
-| Restart loop | `docker compose logs nginx` |
-
-## Cutover to Real Hostname
+## Cutover
 
 1. Update DNS → server IP  
 2. Issue new certificate  
 3. Update `server_name` in `redirect.conf`  
 4. Reload Nginx
-
-## Summary
-
-| Feature | Status |
-|---------|--------|
-| Legacy EZproxy redirect | Yes |
-| Port 80 / 2048 / 443 support | Yes |
-| HTTPS | Yes |
-| Cert auto-renew | Yes |
